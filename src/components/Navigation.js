@@ -3,10 +3,10 @@ import { NavLink } from "react-router-dom";
 import { ScNav } from "./scParts";
 import { CartContext } from "../contexts";
 
-const Navigation = (props) => {
+const Navigation = () => {
 
   const {cart} = useContext(CartContext)
-  
+
   return (
     <ScNav>
       <nav className="content">
