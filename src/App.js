@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import { data } from "./data";
+import { CartContext,ProductContext } from "./contexts";
 
 // Bileşenler
 import Navigation from "./components/Navigation";
@@ -13,22 +14,29 @@ function App() {
 
   const addItem = (item) => {
     // verilen itemi sepete ekleyin
+    setCart([...cart,item])
   };
+
+  const removeItem=(item)=>{
+    setCart(cart.filter(elem=> elem.id!==item.id))
+  }
 
   return (
     <div className="App">
-      <Navigation cart={cart} />
-
+      <CartContext.Provider value={{cart,removeItem}}>
+      <Navigation />
       {/* Routelar */}
       <main className="content">
+        <ProductContext.Provider value={{products,addItem}}>
         <Route exact path="/">
-          <Products products={products} addItem={addItem} />
+          <Products/>
         </Route>
-
+        </ProductContext.Provider>
         <Route path="/cart">
-          <ShoppingCart cart={cart} />
+          <ShoppingCart />
         </Route>
       </main>
+      </CartContext.Provider>
     </div>
   );
 }
