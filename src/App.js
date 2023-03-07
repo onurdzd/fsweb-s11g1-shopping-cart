@@ -10,9 +10,9 @@ import ShoppingCart from "./components/ShoppingCart";
 
 function App() {
   const [products, setProducts] = useState(data);
-  const [localCart,setLocalCart]=useState(localStorage.getItem("sepetItem") ? localStorage.getItem("sepetItem") : [])
-  const [cart, setCart] = useState([]);
-
+  
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("sepetItem")) ? JSON.parse(localStorage.getItem("sepetItem")) : []);
+  
   const addItem = (item) => {
     // verilen itemi sepete ekleyin
     setCart([...cart,item]);
@@ -20,8 +20,7 @@ function App() {
   };
   
   const localeEkle=(item)=>{
-    localStorage.setItem("sepetItem",JSON.stringify([...localCart, item]))
-    setLocalCart([...localCart,item])
+    localStorage.setItem("sepetItem",JSON.stringify([...cart, item]))
   }
 
   const removeItem=(item)=>{
@@ -30,14 +29,8 @@ function App() {
 
   const localdenSil=(item)=>{
     localStorage.setItem("sepetItem",JSON.stringify((cart.filter(elem=> elem.id!==item.id))))
-    setLocalCart(cart.filter(elem=> elem.id!==item.id))
+    setCart((cart.filter(elem=> elem.id!==item.id)))
   }
-
-  useEffect(()=>{
-    setCart(localCart)
-  },[localCart])
-
-  console.log(cart)
 
   return (
     <div className="App">
