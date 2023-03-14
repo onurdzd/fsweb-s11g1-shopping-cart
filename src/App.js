@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
 import { data } from "./data";
 import { CartContext,ProductContext } from "./contexts";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 // Bileşenler
 import Navigation from "./components/Navigation";
@@ -10,7 +12,6 @@ import ShoppingCart from "./components/ShoppingCart";
 
 function App() {
   const [products, setProducts] = useState(data);
-  
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem("sepetItem")) ? JSON.parse(localStorage.getItem("sepetItem")) : []);
   
   const addItem = (item) => {
@@ -48,6 +49,18 @@ function App() {
         </Route>
       </main>
       </CartContext.Provider>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }
